@@ -1,0 +1,54 @@
+﻿<Window x:Class="bd.ResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bd"
+        mc:Ignorable="d"
+        Title="Неотсканированный инвентарь" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Не отсканировано">
+                <TabItem.Content>
+                    <StackPanel>
+                        <Menu>
+                            <MenuItem Header="Сохранить в Excel" Name="PrintMenuBtn" Click="PrintMenuBtn_Click"/>
+                            <MenuItem Header="Сохранить в PDF" Name="PDFBtn" Click="PDFBtn_Click"/>
+                        </Menu>
+                        <StackPanel>
+                            <DataGrid x:Name="ResultGrid" AutoGenerateColumns="False" Height="370" IsReadOnly="True" HeadersVisibility="Column">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Инвентраный  Номер" Binding="{Binding Path=inventory_code}" Width="auto"/>
+                                    <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"  Width="auto"/>
+                                    <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}"  Width="auto"/>
+                                    <DataGridTextColumn Header="Количество" Binding="{Binding Path=Amount}"  Width="auto"/>
+                                    <DataGridTextColumn Header="Расположение" Binding="{Binding Path=Locations.Location}" Width="auto"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Отсканировано">
+                <StackPanel>
+                    <Menu>
+                        <MenuItem Header="Сохранить в Excel" Name="PrintMenuBtn2" Click="PrintMenuBtn2_Click"/>
+                        <MenuItem Header="Сохранить в PDF" Name="PDFBtn2" Click="PDFBtn2_Click"/>
+                    </Menu>
+                    <StackPanel>
+                        <DataGrid x:Name="ResultGrid2" AutoGenerateColumns="False" Height="370" IsReadOnly="True" HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Инвентраный  Номер" Binding="{Binding Path=inventory_code}" Width="auto"/>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"  Width="auto"/>
+                                <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}"  Width="auto"/>
+                                <DataGridTextColumn Header="Количество" Binding="{Binding Path=Amount}"  Width="auto"/>
+                                <DataGridTextColumn Header="Расположение" Binding="{Binding Path=Locations.Location}" Width="auto"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
+</Window>

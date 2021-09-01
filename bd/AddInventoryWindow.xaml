@@ -1,0 +1,77 @@
+﻿<Window x:Class="bd.AddInventoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bd"
+        mc:Ignorable="d"
+        Title="AddInventoryWindow" Height="400" Width="550">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="3">
+                    <TextBlock Text="Имя"
+                               FontSize="12pt"
+                               Width="60"/>
+                    <TextBox Width="356"
+                             FontSize="12pt"
+                             Name="NameTxb"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="3">
+                    <TextBlock Text="Код"
+                               FontSize="12pt"
+                               Width="60"/>
+                    <TextBox Width="356"
+                             FontSize="12pt"
+                             Name="CodeTxb"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="3">
+                    <TextBlock Text="Цена"
+                               FontSize="12pt"
+                               Width="60"/>
+                    <TextBox Width="120"
+                             FontSize="12pt"
+                             Name="PriceTxb"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="3">
+                    <TextBlock Text="Количество"
+                               FontSize="12pt"
+                               Width="110"/>
+                    <TextBox Width="120"
+                             FontSize="12pt"
+                             Name="AmountTxb"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="3">
+                    <TextBlock Text="Отдел"
+                               FontSize="12pt"
+                               Width="60"/>
+                    <ComboBox Width="120"
+                              FontSize="12pt"
+                              Name="LocationCmb"
+                              SelectionChanged="LocationCmb_SelectionChanged"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="3">
+                    <TextBlock Text="Рабочее место"
+                               FontSize="12pt"
+                               Width="110"/>
+                    <ComboBox Width="120"
+                              FontSize="12pt"
+                              Name="WorkplaceCmb"
+                              IsEnabled="False"/>
+                </StackPanel>
+            </StackPanel>
+            <Button Content=" Добавить "
+                    Margin="25"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="12pt"
+                    Name="AddInventoryBtn"
+                    Click="AddInventoryBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
