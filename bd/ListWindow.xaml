@@ -87,6 +87,11 @@
                         <DataGridTextColumn Header="Отдел" Binding="{Binding Path=Workplaces.Locations.Location}" Width="*"/>
                         <DataGridTextColumn Header="Рабочее место" Binding="{Binding Path=Workplaces.Place}" Width="0.6*"/>
                     </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Удалить" Name="DeleteBtn" Click="DeleteBtn_Click"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                 </DataGrid>
             </StackPanel>
         </Viewbox>

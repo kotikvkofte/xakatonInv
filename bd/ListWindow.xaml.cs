@@ -44,11 +44,6 @@ namespace bd
         private void WorkplaceCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectWorkplace = Convert.ToInt32(WorkplaceCmb.SelectedValue);
-            /*if (LocationCmb.SelectedItem != null)
-            {
-                var k = OdbConnectHelper.entObj.Workplaces.FirstOrDefault(x => x.Id == SelectWorkplace);
-                LocationCmb.ItemsSource = DataBaseActions.GetLocationsList().Where(x => x.Workplaces == k);
-            }*/
             SearchInDB();
         }
 
@@ -77,6 +72,23 @@ namespace bd
         {
             List<Inventory> inventories = (List<Inventory>)MainList.ItemsSource;
             PrintClassHelper.PrintAga(inventories);
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Inventory inventory = MainList.SelectedItem as Inventory;
+            var Result = MessageBox.Show("Вы действительно хотите удалить выбранный инвентарь?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (Result == MessageBoxResult.Yes)
+            {
+                OdbConnectHelper.entObj.Inventory.Remove(inventory);
+                OdbConnectHelper.entObj.SaveChanges();
+                SearchInDB();
+                MessageBox.Show("Инвентарь удален");
+            }
+            else if (Result == MessageBoxResult.No)
+            {
+                return;
+            }
         }
 
         private void SearchInDB()
