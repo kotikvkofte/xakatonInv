@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\solution1\Donatello\bd\App.xaml
-61864769975
+71198586807
 
-11-298387653
+12-1036378461
 391621278263
-AddInventoryWindow.xaml;AddLocationWindow.xaml;AddWorkplaceWindow.xaml;ListWindow.xaml;MainWindow.xaml;ResultWindow.xaml;
+AddInventoryWindow.xaml;AddLocationWindow.xaml;AddRespPersonWindow.xaml;AddWorkplaceWindow.xaml;ListWindow.xaml;MainWindow.xaml;ResultWindow.xaml;
 
-False
+True
 

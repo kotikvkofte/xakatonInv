@@ -89,6 +89,7 @@ namespace bd
             AddBtn.Content = "Сохранить";
             SelectedId = wp.Id;
             SaveBtnChecker = true;
+            WorkplaceList.ItemsSource = DataBaseActions.GetWorkplacesList();
         }
 
         private void ContextMenuDelBtn_Click(object sender, RoutedEventArgs e)

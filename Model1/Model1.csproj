@@ -130,6 +130,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataFiles\OdbConnectHelper.cs" />
+    <Compile Include="DataFiles\Responsible_Persons.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataFiles\Roles.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

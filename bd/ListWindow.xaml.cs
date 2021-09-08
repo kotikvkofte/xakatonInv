@@ -30,9 +30,12 @@ namespace bd
             WorkplaceCmb.DisplayMemberPath = "Place";
             WorkplaceCmb.SelectedValuePath = "Id";
             WorkplaceCmb.ItemsSource = DataBaseActions.GetWorkplacesList();
+            RespPersonCmb.DisplayMemberPath = "Name";
+            RespPersonCmb.SelectedValuePath = "Id";
+            RespPersonCmb.ItemsSource = DataBaseActions.GetAllRespPersonsList();
             MainList.ItemsSource = DataBaseActions.GetAllInventoryList();
         }
-        int SelectLoc, SelectWorkplace;
+        int SelectLoc, SelectWorkplace, SelectRespPerson;
 
         private void LocationCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -44,6 +47,12 @@ namespace bd
         private void WorkplaceCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectWorkplace = Convert.ToInt32(WorkplaceCmb.SelectedValue);
+            SearchInDB();
+        }
+
+        private void RespPersonCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectRespPerson = Convert.ToInt32(RespPersonCmb.SelectedValue);
             SearchInDB();
         }
 
@@ -62,16 +71,18 @@ namespace bd
         {
             WorkplaceCmb.SelectedItem = null;
             LocationCmb.SelectedItem = null;
+            RespPersonCmb.SelectedItem = null;
             NameTxb.Text = "";
             LocationCmb.ItemsSource = DataBaseActions.GetLocationsList();
             WorkplaceCmb.ItemsSource = DataBaseActions.GetWorkplacesList();
             MainList.ItemsSource = DataBaseActions.GetAllInventoryList();
+            RespPersonCmb.ItemsSource = DataBaseActions.GetAllRespPersonsList();
         }
 
         private void PrintBtn_Click(object sender, RoutedEventArgs e)
         {
             List<Inventory> inventories = (List<Inventory>)MainList.ItemsSource;
-            PrintClassHelper.PrintAga(inventories);
+            PrintClassHelper.Print(inventories, "Отфильтрованный список ");
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -93,27 +104,25 @@ namespace bd
 
         private void SearchInDB()
         {
-            MainList.ItemsSource = DataBaseActions.GetFiltredInventoryList(SelectLocation: SelectLoc, SelectWorkPlace: SelectWorkplace, SearchName: NameTxb.Text);
-            if (LocationCmb.SelectedItem == null && WorkplaceCmb.SelectedItem == null && NameTxb.Text == "")
+            /*MainList.ItemsSource = DataBaseActions.GetFiltredInventoryList(SelectLocation: SelectLoc, SelectWorkPlace: SelectWorkplace, SearchName: NameTxb.Text);
+            if (LocationCmb.SelectedItem == null && WorkplaceCmb.SelectedItem == null && NameTxb.Text == "" && RespPersonCmb.SelectedItem == null)
             {
                 MainList.ItemsSource = DataBaseActions.GetAllInventoryList();
-            }
-            if (NameTxb.Text == "" && LocationCmb.SelectedItem != null && WorkplaceCmb.SelectedItem != null)
-            {
-                MainList.ItemsSource = DataBaseActions.GetFiltredInventoryList(SelectLoc, SelectWorkplace);
-            }
-            if (NameTxb.Text != "" && LocationCmb.SelectedItem == null && WorkplaceCmb.SelectedItem == null)
-            {
-                MainList.ItemsSource = DataBaseActions.GetFiltredInventoryList(NameTxb.Text);
-            }
-            if (NameTxb.Text == "" && LocationCmb.SelectedItem == null && WorkplaceCmb.SelectedItem != null)
-            {
-                MainList.ItemsSource = OdbConnectHelper.entObj.Inventory.Where(x => x.Workplaces.Id == SelectWorkplace).ToList();
-            }
-            if (NameTxb.Text == "" && LocationCmb.SelectedItem != null && WorkplaceCmb.SelectedItem == null)
-            {
-                MainList.ItemsSource = OdbConnectHelper.entObj.Inventory.Where(x => x.Workplaces.Locations.Id == SelectLoc).ToList();
-            }
+            }*/
+
+            List<Inventory> CurrentList = DataBaseActions.GetAllInventoryList();
+
+            if (LocationCmb.SelectedItem != null)
+                CurrentList = CurrentList.Where(x => x.Workplaces.IdLocation == SelectLoc).ToList();
+            if (WorkplaceCmb.SelectedItem != null)
+                CurrentList = CurrentList.Where(x => x.IdWorkplace == SelectWorkplace).ToList();
+            if (RespPersonCmb.SelectedItem != null)
+                CurrentList = CurrentList.Where(x => x.IdPerson == SelectRespPerson).ToList();
+            if (NameTxb.Text != "")
+                CurrentList = CurrentList.Where(x => x.Name.StartsWith(NameTxb.Text)).ToList();
+
+            MainList.ItemsSource = CurrentList;
+
         }
     }
 }

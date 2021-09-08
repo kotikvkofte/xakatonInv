@@ -14,6 +14,11 @@
         </Grid.ColumnDefinitions>
 
         <Menu VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <MenuItem Header="Добавить">
+                <MenuItem Header="Отделы" Name="AddLocationBtn" Click="AddLocationBtn_Click"/>
+                <MenuItem Header="Рабочие места" Name="AddWorkplaceBtn" Click="AddWorkplaceBtn_Click"/>
+                <MenuItem Header="Ответственные лица" Name="AddRepPersonBtn" Click="AddRepPersonBtn_Click"/>
+            </MenuItem>
             <MenuItem Header="Обновить БД" Click="UpdateDBBtn_Click_1" Name="UpdateDBBtn"/>
             <MenuItem Header="Открыть список" Click="OpenListBtn_Click" Name="OpenListBtn"/>
         </Menu>
@@ -23,7 +28,7 @@
                     VerticalAlignment="Center"
                     Orientation="Vertical"
                         FocusManager.FocusedElement="{Binding ElementName=BarcodeTxb}">
-                
+
                 <StackPanel Orientation="Vertical" Panel.ZIndex="1"
                             FocusManager.FocusedElement="{Binding ElementName=BarcodeTxb}">
                     <TextBlock
@@ -66,35 +71,16 @@
                     </Image>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center"
-                            VerticalAlignment="Bottom"
-                            Orientation="Horizontal">
-                    <Button
-                        FontSize="12pt"
-                        Name="AddLocationBtn"
-                        Width="120"
-                        Click="AddLocationBtn_Click"
-                        Height="35">
-                        <TextBlock TextAlignment="Center">
-                            Отделы
-                        </TextBlock>
-                    </Button>
-                    <Button FontSize="12pt"
-                            Width="120"
-                            Name="AddWorkplaceBtn"
-                            Click="AddWorkplaceBtn_Click"
-                            Margin="5,5,0,5"
-                            Height="35">
-                        <TextBlock TextAlignment="Center">
-                             Рабочие места
-                        </TextBlock>
-                    </Button>
-                </StackPanel>
-                <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Bottom">
                     <Button Content=" Начать инвентаризацию "
                             FontSize="12pt"
                             Name="InventoryzationButton"
                             Click="InventoryzationButton_Click"
+                            Margin="0,5,0,5"/>
+                    <Button Content=" Продолжить инвентаризацию "
+                            FontSize="12pt"
+                            Name="InventoryzationContinueButton"
+                            Click="InventoryzationContinueButton_Click"
                             Margin="0,5,0,5"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Hidden" Name="ChkbsInventoryPanel">
                         <TextBlock Text="0" Name="InventoryCurrentTxt"/>
@@ -104,18 +90,21 @@
                 </StackPanel>
             </StackPanel>
         </Viewbox>
-        <Viewbox Grid.Column="1" Margin="20">
+        <Viewbox Grid.Column="1" >
             <StackPanel VerticalAlignment="Center" Width="300">
-                <StackPanel x:Name="InputPanel">
+                <StackPanel x:Name="InputPanel" Panel.ZIndex="0">
                     <TextBlock Text="Введите инвентарный номер"
-                           TextAlignment="Center"
-                           Name="InputMsg"
-                           FontSize="12pt"/>
+                               Margin="0,12,0,0"
+                               TextAlignment="Center"
+                               Name="InputMsg"
+                               FontSize="12pt"
+                               />
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Visibility="Hidden"
-                        Name="MainPanel">
+                            VerticalAlignment="Center"
+                            Visibility="Visible"
+                            Name="MainPanel"
+                            Panel.ZIndex="1">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Название:"
                                TextAlignment="Center"
@@ -143,6 +132,15 @@
                         <ComboBox Name="WorkplaceCmb" Margin="0,10,0,10"
                                   SelectionChanged="WorkplaceCmb_SelectionChanged"
                                   IsEnabled="False"
+                                  FontSize="12pt">
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="5">
+                        <TextBlock Text="Ответственное лицо:"
+                               TextAlignment="Center"
+                               FontSize="12pt"/>
+                        <ComboBox Name="RespPerson" Margin="0,10,0,10"
+                                  SelectionChanged="RespPerson_SelectionChanged"
                                   FontSize="12pt">
                         </ComboBox>
                     </StackPanel>

@@ -1,37 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="test1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="test1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Inventory" EntityType="test1Model.Inventory" />
+    <EntitySet Name="Locations" EntityType="test1Model.Locations" />
+    <EntitySet Name="Responsible_Persons" EntityType="test1Model.Responsible_Persons" />
+    <EntitySet Name="Roles" EntityType="test1Model.Roles" />
+    <EntitySet Name="sysdiagrams" EntityType="test1Model.sysdiagrams" />
+    <EntitySet Name="Users" EntityType="test1Model.Users" />
+    <EntitySet Name="Workplaces" EntityType="test1Model.Workplaces" />
+    <AssociationSet Name="FK_Inventory_Responsible_Persons" Association="test1Model.FK_Inventory_Responsible_Persons">
+      <End Role="Responsible_Persons" EntitySet="Responsible_Persons" />
+      <End Role="Inventory" EntitySet="Inventory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inventory_Workplaces" Association="test1Model.FK_Inventory_Workplaces">
+      <End Role="Workplaces" EntitySet="Workplaces" />
+      <End Role="Inventory" EntitySet="Inventory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Workplaces_Locations" Association="test1Model.FK_Workplaces_Locations">
+      <End Role="Locations" EntitySet="Locations" />
+      <End Role="Workplaces" EntitySet="Workplaces" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="test1Model.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Inventory">
     <Key>
       <PropertyRef Name="inventory_code" />
     </Key>
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="inventory_code" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="inventory_code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="Price" Type="Single" Nullable="false" />
     <Property Name="Amount" Type="Int32" Nullable="false" />
     <Property Name="IdWorkplace" Type="Int32" />
-    <NavigationProperty Name="Workplaces" Relationship="Self.FK_Inventory_Workplaces" FromRole="Inventory" ToRole="Workplaces" />
+    <Property Name="IdPerson" Type="Int32" />
+    <NavigationProperty Name="Responsible_Persons" Relationship="test1Model.FK_Inventory_Responsible_Persons" FromRole="Inventory" ToRole="Responsible_Persons" />
+    <NavigationProperty Name="Workplaces" Relationship="test1Model.FK_Inventory_Workplaces" FromRole="Inventory" ToRole="Workplaces" />
   </EntityType>
   <EntityType Name="Locations">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Workplaces" Relationship="Self.FK_Workplaces_Locations" FromRole="Locations" ToRole="Workplaces" />
+    <Property Name="Location" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Workplaces" Relationship="test1Model.FK_Workplaces_Locations" FromRole="Locations" ToRole="Workplaces" />
+  </EntityType>
+  <EntityType Name="Responsible_Persons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Inventory" Relationship="test1Model.FK_Inventory_Responsible_Persons" FromRole="Responsible_Persons" ToRole="Inventory" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+    <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="test1Model.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="principal_id" Type="Int32" Nullable="false" />
     <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="version" Type="Int32" />
@@ -42,24 +77,36 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="IdRole" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+    <NavigationProperty Name="Roles" Relationship="test1Model.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
   </EntityType>
   <EntityType Name="Workplaces">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Place" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Place" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="IdLocation" Type="Int32" />
-    <NavigationProperty Name="Inventory" Relationship="Self.FK_Inventory_Workplaces" FromRole="Workplaces" ToRole="Inventory" />
-    <NavigationProperty Name="Locations" Relationship="Self.FK_Workplaces_Locations" FromRole="Workplaces" ToRole="Locations" />
+    <NavigationProperty Name="Inventory" Relationship="test1Model.FK_Inventory_Workplaces" FromRole="Workplaces" ToRole="Inventory" />
+    <NavigationProperty Name="Locations" Relationship="test1Model.FK_Workplaces_Locations" FromRole="Workplaces" ToRole="Locations" />
   </EntityType>
+  <Association Name="FK_Inventory_Responsible_Persons">
+    <End Type="test1Model.Responsible_Persons" Role="Responsible_Persons" Multiplicity="0..1" />
+    <End Type="test1Model.Inventory" Role="Inventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Responsible_Persons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inventory">
+        <PropertyRef Name="IdPerson" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Inventory_Workplaces">
-    <End Role="Workplaces" Type="Self.Workplaces" Multiplicity="0..1" />
-    <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+    <End Type="test1Model.Workplaces" Role="Workplaces" Multiplicity="0..1" />
+    <End Type="test1Model.Inventory" Role="Inventory" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Workplaces">
         <PropertyRef Name="Id" />
@@ -70,8 +117,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Workplaces_Locations">
-    <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
-    <End Role="Workplaces" Type="Self.Workplaces" Multiplicity="*" />
+    <End Type="test1Model.Locations" Role="Locations" Multiplicity="0..1" />
+    <End Type="test1Model.Workplaces" Role="Workplaces" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Locations">
         <PropertyRef Name="Id" />
@@ -82,8 +129,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Users_Roles">
-    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
-    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <End Type="test1Model.Roles" Role="Roles" Multiplicity="1" />
+    <End Type="test1Model.Users" Role="Users" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Roles">
         <PropertyRef Name="Id" />
@@ -93,24 +140,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="test1Entities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Inventory" EntityType="Self.Inventory" />
-    <EntitySet Name="Locations" EntityType="Self.Locations" />
-    <EntitySet Name="Roles" EntityType="Self.Roles" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-    <EntitySet Name="Users" EntityType="Self.Users" />
-    <EntitySet Name="Workplaces" EntityType="Self.Workplaces" />
-    <AssociationSet Name="FK_Inventory_Workplaces" Association="Self.FK_Inventory_Workplaces">
-      <End Role="Workplaces" EntitySet="Workplaces" />
-      <End Role="Inventory" EntitySet="Inventory" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Workplaces_Locations" Association="Self.FK_Workplaces_Locations">
-      <End Role="Locations" EntitySet="Locations" />
-      <End Role="Workplaces" EntitySet="Workplaces" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
-      <End Role="Roles" EntitySet="Roles" />
-      <End Role="Users" EntitySet="Users" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

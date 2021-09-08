@@ -22,7 +22,9 @@
                                     <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"  Width="auto"/>
                                     <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}"  Width="auto"/>
                                     <DataGridTextColumn Header="Количество" Binding="{Binding Path=Amount}"  Width="auto"/>
-                                    <DataGridTextColumn Header="Расположение" Binding="{Binding Path=Locations.Location}" Width="auto"/>
+                                    <DataGridTextColumn Header="Месторасположение" Binding="{Binding Path=Workplaces.Locations.Location}" Width="auto"/>
+                                    <DataGridTextColumn Header="Рабочее место" Binding="{Binding Path=Workplaces.Place}" Width="auto"/>
+                                    <DataGridTextColumn Header="Ответственное лицо" Binding="{Binding Path=Responsible_Persons.Name}" Width="auto"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </StackPanel>
@@ -42,7 +44,9 @@
                                 <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"  Width="auto"/>
                                 <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}"  Width="auto"/>
                                 <DataGridTextColumn Header="Количество" Binding="{Binding Path=Amount}"  Width="auto"/>
-                                <DataGridTextColumn Header="Расположение" Binding="{Binding Path=Locations.Location}" Width="auto"/>
+                                <DataGridTextColumn Header="Месторасположение" Binding="{Binding Path=Workplaces.Locations.Location}" Width="auto"/>
+                                <DataGridTextColumn Header="Рабочее место" Binding="{Binding Path=Workplaces.Place}" Width="auto"/>
+                                <DataGridTextColumn Header="Ответственное лицо" Binding="{Binding Path=Responsible_Persons.Name}" Width="auto"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>

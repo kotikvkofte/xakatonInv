@@ -19,9 +19,9 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal"
                             Margin="5">
-                        <TextBlock Text="Отдел:" 
+                        <TextBlock Text="Месторасположение:" 
                                FontSize="12pt"
-                               Width="120"/>
+                               Width="160"/>
                         <ComboBox Width="150"
                               FontSize="12pt"
                               Name="LocationCmb"
@@ -31,7 +31,7 @@
                             Margin="5">
                         <TextBlock Text="Рабочее место:" 
                                FontSize="12pt"
-                               Width="120"/>
+                               Width="160"/>
                         <ComboBox Width="150"
                               FontSize="12pt"
                               Name="WorkplaceCmb"
@@ -41,33 +41,42 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal"
                             Margin="5">
-                        <TextBlock Text="Имя:" 
+                        <TextBlock Text="Ответственное лицо:" 
                                FontSize="12pt"
-                               Width="100"
+                               Width="160"/>
+                        <ComboBox Width="150"
+                              FontSize="12pt"
+                              Name="RespPersonCmb"
+                              SelectionChanged="RespPersonCmb_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                            Margin="5">
+                        <TextBlock Text="Наименование:" 
+                               FontSize="12pt"
+                               Width="160"
                                Margin="2,0,0,0"/>
                         <TextBox Width="150"
                              FontSize="12pt"
                              Name="NameTxb"
                              TextChanged="NameTxt_TextChanged"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal"
+                </StackPanel>
+                <StackPanel Orientation="Vertical"
                             HorizontalAlignment="Center">
-                        <Button Content=" Очистить "
+                    <Button Content=" Очистить "
                             FontSize="12pt"
                             Width="120"
-                            Height="35"
+                            Height="25"
                             Margin="5"
                             Name="ClearBtn"
                             Click="ClearBtn_Click"/>
-                        <Button Content=" Печать "
+                    <Button Content=" Печать "
                             FontSize="12pt"
                             Margin="5"
                             Width="120"
-                            Height="35"
+                            Height="25"
                             Name="PrintBtn"
                             Click="PrintBtn_Click"/>
-
-                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Viewbox>
@@ -80,12 +89,13 @@
                           SelectionMode="Single"
                           IsReadOnly="True" Width="{Binding ElementName=MainWin, Path=ActualWidth}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Инвентраный  Номер" Binding="{Binding Path=inventory_code}" Width="*"/>
-                        <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"  Width="*"/>
-                        <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}"  Width="0.6*"/>
-                        <DataGridTextColumn Header="Количество" Binding="{Binding Path=Amount}"  Width="0.6*"/>
-                        <DataGridTextColumn Header="Отдел" Binding="{Binding Path=Workplaces.Locations.Location}" Width="*"/>
-                        <DataGridTextColumn Header="Рабочее место" Binding="{Binding Path=Workplaces.Place}" Width="0.6*"/>
+                        <DataGridTextColumn Header="Инвентраный  Номер" Binding="{Binding Path=inventory_code}" Width="0.7*"/>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"  Width="0.6*"/>
+                        <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}"  Width="0.2*"/>
+                        <DataGridTextColumn Header="Количество" Binding="{Binding Path=Amount}"  Width="0.45*"/>
+                        <DataGridTextColumn Header="Месторасположение" Binding="{Binding Path=Workplaces.Locations.Location}" Width="0.61*"/>
+                        <DataGridTextColumn Header="Рабочее место" Binding="{Binding Path=Workplaces.Place}" Width="0.41*"/>
+                        <DataGridTextColumn Header="Ответственное лицо" Binding="{Binding Path=Responsible_Persons.Name}" Width="0.6*"/>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>

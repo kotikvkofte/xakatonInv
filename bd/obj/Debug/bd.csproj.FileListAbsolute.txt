@@ -279,3 +279,5 @@ E:\solution1\Donatello\bd\obj\Debug\bd.csproj.CoreCompileInputs.cache
 E:\solution1\Donatello\bd\obj\Debug\bd.csproj.CopyComplete
 E:\solution1\Donatello\bd\obj\Debug\bd.exe
 E:\solution1\Donatello\bd\obj\Debug\bd.pdb
+E:\solution1\Donatello\bd\obj\Debug\AddRespPersonWindow.g.cs
+E:\solution1\Donatello\bd\obj\Debug\AddRespPersonWindow.baml

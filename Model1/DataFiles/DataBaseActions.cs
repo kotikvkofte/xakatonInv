@@ -14,6 +14,7 @@ namespace Model1
         public static List<Locations> GetLocationsList() => OdbConnectHelper.entObj.Locations.ToList();
         public static List<Workplaces> GetWorkplacesList() => OdbConnectHelper.entObj.Workplaces.ToList();
         public static List<Inventory> GetAllInventoryList() => OdbConnectHelper.entObj.Inventory.ToList();
+        public static List<Responsible_Persons> GetAllRespPersonsList() => OdbConnectHelper.entObj.Responsible_Persons.ToList();
 
         public static void AddLocation(Locations location)
         {
@@ -22,6 +23,10 @@ namespace Model1
         public static void AddInventory(Inventory inventory)
         {
             OdbConnectHelper.entObj.Inventory.Add(inventory);
+        }
+        public static void AddRespPerson(Responsible_Persons person)
+        {
+            OdbConnectHelper.entObj.Responsible_Persons.Add(person);
         }
         public static List<Inventory> GetFiltredInventoryList(int SelectLocation, int SelectWorkPlace, string SearchName) => OdbConnectHelper.entObj.Inventory.Where(x => x.Workplaces.IdLocation == SelectLocation && x.Workplaces.Id == SelectWorkPlace && x.Name.StartsWith(SearchName)).ToList();
         public static List<Inventory> GetFiltredInventoryList(int SelectLocation, int SelectWorkPlace) => OdbConnectHelper.entObj.Inventory.Where(x => x.Workplaces.IdLocation == SelectLocation && x.Workplaces.Id == SelectWorkPlace).ToList();

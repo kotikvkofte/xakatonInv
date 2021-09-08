@@ -103,6 +103,9 @@
     <Compile Include="AddInventoryWindow.xaml.cs">
       <DependentUpon>AddInventoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddRespPersonWindow.xaml.cs">
+      <DependentUpon>AddRespPersonWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddWorkplaceWindow.xaml.cs">
       <DependentUpon>AddWorkplaceWindow.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddLocationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddRespPersonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

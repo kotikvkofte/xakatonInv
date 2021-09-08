@@ -5,10 +5,11 @@
       <PropertyRef Name="inventory_code" />
     </Key>
     <Property Name="Name" Type="text" Nullable="false" />
-    <Property Name="inventory_code" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="inventory_code" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="Price" Type="real" Nullable="false" />
     <Property Name="Amount" Type="int" Nullable="false" />
     <Property Name="IdWorkplace" Type="int" />
+    <Property Name="IdPerson" Type="int" />
   </EntityType>
   <EntityType Name="Locations">
     <Key>
@@ -16,6 +17,13 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Location" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Responsible_Persons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
@@ -51,6 +59,18 @@
     <Property Name="Place" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="IdLocation" Type="int" />
   </EntityType>
+  <Association Name="FK_Inventory_Responsible_Persons">
+    <End Role="Responsible_Persons" Type="Self.Responsible_Persons" Multiplicity="0..1" />
+    <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Responsible_Persons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inventory">
+        <PropertyRef Name="IdPerson" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Inventory_Workplaces">
     <End Role="Workplaces" Type="Self.Workplaces" Multiplicity="0..1" />
     <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
@@ -90,10 +110,15 @@
   <EntityContainer Name="Хранилище test1ModelContainer">
     <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Responsible_Persons" EntityType="Self.Responsible_Persons" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Workplaces" EntityType="Self.Workplaces" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Inventory_Responsible_Persons" Association="Self.FK_Inventory_Responsible_Persons">
+      <End Role="Responsible_Persons" EntitySet="Responsible_Persons" />
+      <End Role="Inventory" EntitySet="Inventory" />
+    </AssociationSet>
     <AssociationSet Name="FK_Inventory_Workplaces" Association="Self.FK_Inventory_Workplaces">
       <End Role="Workplaces" EntitySet="Workplaces" />
       <End Role="Inventory" EntitySet="Inventory" />

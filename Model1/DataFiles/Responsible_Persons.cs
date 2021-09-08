@@ -12,16 +12,18 @@ namespace Model1.DataFiles
     using System;
     using System.Collections.Generic;
     
-    public partial class Inventory
+    public partial class Responsible_Persons
     {
-        public string Name { get; set; }
-        public string inventory_code { get; set; }
-        public float Price { get; set; }
-        public int Amount { get; set; }
-        public Nullable<int> IdWorkplace { get; set; }
-        public Nullable<int> IdPerson { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Responsible_Persons()
+        {
+            this.Inventory = new HashSet<Inventory>();
+        }
     
-        public virtual Responsible_Persons Responsible_Persons { get; set; }
-        public virtual Workplaces Workplaces { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Inventory> Inventory { get; set; }
     }
 }

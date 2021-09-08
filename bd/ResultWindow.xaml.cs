@@ -69,9 +69,7 @@ namespace bd
         
         private void PDFBtn_Click(object sender, RoutedEventArgs e)
         {
-             PrintClassHelper.ConvertToDatatable(Inventorys.GetResultInventoryList());
-             PrintClassHelper.Print();
-             PrintClassHelper.ClearDataTable();
+            PrintClassHelper.Print(Inventorys.GetResultInventoryList(), "Неотсканированный инвентарь ");
         }
 
         private void PrintMenuBtn2_Click(object sender, RoutedEventArgs e)
@@ -81,9 +79,7 @@ namespace bd
 
         private void PDFBtn2_Click(object sender, RoutedEventArgs e)
         {
-            PrintClassHelper.ConvertToDatatable(Inventorys.GetCurrentInventoryList());
-            PrintClassHelper.Print();
-            PrintClassHelper.ClearDataTable();
+            PrintClassHelper.Print(Inventorys.GetCurrentInventoryList(), "Отсканированный инвентарь ");
         }
     }
 }

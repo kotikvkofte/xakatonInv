@@ -27,6 +27,9 @@ namespace bd
             LocationCmb.ItemsSource = DataBaseActions.GetLocationsList();
             WorkplaceCmb.DisplayMemberPath = "Place";
             WorkplaceCmb.SelectedValuePath = "Id";
+            RespPerson.DisplayMemberPath = "Name";
+            RespPerson.SelectedValuePath = "Id";
+            RespPerson.ItemsSource = DataBaseActions.GetAllRespPersonsList();
             BarcodeTxb.Focus();
             UpdateCurrentInventory();
         }
@@ -132,7 +135,7 @@ namespace bd
             Keyboard.Focus(BarcodeTxb);
         }
 
-        int SelectedValue1, SelectedValue2;
+        int SelectedValue1, SelectedValue2, SelectedValue3;
 
         private void LocationCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -178,7 +181,29 @@ namespace bd
 
 
         }
-
+        private void RespPerson_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BarcodeTxb.Text == "")
+            {
+                return;
+            }
+            if (inventory != null)
+            {
+                try
+                {
+                    if (RespPerson.SelectedItem != null)
+                    {
+                        SelectedValue3 = Convert.ToInt32(RespPerson.SelectedValue);
+                        inventory.IdPerson = SelectedValue3;
+                        OdbConnectHelper.entObj.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Критическая ошибка приложения" + ex.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
         private void SelectAllText()
         {
             if (SelectChkb.IsChecked == true)
@@ -253,6 +278,20 @@ namespace bd
             ExcelHelper.ReadExcelFile();
         }
 
+        private void AddRepPersonBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddRespPersonWindow addRespPerson = new AddRespPersonWindow();
+            addRespPerson.ShowDialog();
+            Keyboard.Focus(BarcodeTxb);
+        }
+        bool ContnueInventarization = false;
+        private void InventoryzationContinueButton_Click(object sender, RoutedEventArgs e)
+        {
+            InventoryzationButton.Visibility = Visibility.Hidden;
+            ContnueInventarization = true;
+            
+        }
+
         private void AddInventory_Click(object sender, RoutedEventArgs e)
         {
             AddInventoryWindow addInventoryWindow = new AddInventoryWindow(BarcodeTxb.Text);
@@ -260,12 +299,29 @@ namespace bd
             Keyboard.Focus(BarcodeTxb);
         }
 
+        
+
         private void OpenListBtn_Click(object sender, RoutedEventArgs e)
         {
             ListWindow listWindow = new ListWindow();
 
             listWindow.ShowDialog();
             Keyboard.Focus(BarcodeTxb);
+        }
+
+        private void ContinueInv()
+        {
+            if (ContnueInventarization)
+            {
+                InventoryzationButton.Visibility = Visibility.Hidden;
+                
+                InventoryzationContinueButton.Content = "Закончить инвентаризацию";
+
+            }
+            if (ContnueInventarization == false)
+            {
+
+            }
         }
     }
 }

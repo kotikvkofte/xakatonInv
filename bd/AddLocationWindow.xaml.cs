@@ -78,6 +78,7 @@ namespace bd
             AddLocBtn.Content = "Сохранить";
             SelectedId = locs.Id;
             SaveBtnChecker = true;
+            LocList.ItemsSource = DataBaseActions.GetLocationsList();
         }
 
         private void ContextMenuDelBtn_Click(object sender, RoutedEventArgs e)

@@ -27,6 +27,7 @@ namespace Model1.DataFiles
     
         public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<Locations> Locations { get; set; }
+        public virtual DbSet<Responsible_Persons> Responsible_Persons { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }

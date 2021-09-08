@@ -18,8 +18,8 @@
                 <ListView Name="WorkplaceList" FontSize="12pt" Width="300" Height="215" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Рабочее место" DisplayMemberBinding="{Binding Path=Place}" Width="auto"/>
-                            <GridViewColumn Header="Отдел" DisplayMemberBinding="{Binding Path=Locations.Location}" Width="auto"/>
+                            <GridViewColumn Header="Рабочее место" DisplayMemberBinding="{Binding Path=Place}" Width="120"/>
+                            <GridViewColumn Header="Месторасположение" DisplayMemberBinding="{Binding Path=Locations.Location}" Width="180"/>
                         </GridView>
                     </ListView.View>
                     <ListView.ContextMenu>
@@ -35,10 +35,10 @@
                     Orientation="Vertical"
                     Margin="15">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Отдел: "
+                    <TextBlock Text="Месторасположение: "
                                FontSize="12pt"
                                Margin="2"
-                               Width="120"/>
+                               Width="160"/>
                     <ComboBox Width="150"
                          FontSize="12pt"
                          Margin="2"
@@ -50,7 +50,7 @@
                     <TextBlock Text="Рабочее место: "
                            FontSize="12pt"
                            Margin="2"
-                               Width="120"/>
+                               Width="160"/>
                     <TextBox Width="150"
                          FontSize="12pt"
                          Margin="2"

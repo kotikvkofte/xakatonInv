@@ -64,34 +64,53 @@ namespace Model1
 
         }
 
-        public static DataTable dt = new DataTable();
-        public static DataSet dataSet = new DataSet();
+        private static DataTable dt = new DataTable();
+        private static DataSet dataSet = new DataSet();
 
         public static void ConvertToDatatable(List<Inventory> list)
         {
 
             try
             {
-                dt.Columns.Add("Name");
-                dt.Columns.Add("inventory_code");
-                dt.Columns.Add("Price");
-                dt.Columns.Add("Amount");
-                dt.Columns.Add("IdWorkplace");
+                dt.Columns.Add("Наименование");
+                dt.Columns.Add("Инвентарный номер");
+                dt.Columns.Add("Цена");
+                dt.Columns.Add("Количество");
+                dt.Columns.Add("Рабочее место");
+                dt.Columns.Add("Месторасположение");
+                dt.Columns.Add("Ответственное лицо");
                 foreach (var item in list)
                 {
                     var row = dt.NewRow();
 
-                    row["Name"] = item.Name;
-                    row["inventory_code"] = item.inventory_code;
-                    row["Price"] = item.Price;
-                    row["Amount"] = item.Amount;
-                    row["IdWorkplace"] = item.IdWorkplace;
+                    row["Наименование"] = item.Name;
+                    row["Инвентарный номер"] = item.inventory_code;
+                    row["Цена"] = item.Price;
+                    row["Количество"] = item.Amount;
+
+                    if (item.Workplaces.Place != null)
+                        row["Рабочее место"] = item.Workplaces.Place;
+                    else
+                        row["Рабочее место"] = "-";
+
+                    if (item.Workplaces.Locations != null)
+                        row["Месторасположение"] = item.Workplaces.Locations.Location;
+                    else
+                        row["Месторасположение"] = "-";
+                    if (item.Responsible_Persons != null)
+                        row["Ответственное лицо"] = item.Responsible_Persons.Name;
+                    else
+                        row["Ответственное лицо"] = "-";
+
+                    
+                    
+                    
                     dt.Rows.Add(row);
                 }
             }
             catch (Exception)
             {
-
+                throw;
             }
         }
 
@@ -153,10 +172,12 @@ namespace Model1
             doc.Close();
         }
 
-        public static void Print()
+        public static void Print(List<Inventory> list,string a)
         {
+            
             try
             {
+                ConvertToDatatable(list);
                 var gg = dt.Copy();
                 dataSet.Tables.Add(gg);
                 //Creates an empty PDF document instance
@@ -191,7 +212,7 @@ namespace Model1
                     PdfPTable table = new PdfPTable(dataSet.Tables[i].Columns.Count);
 
                     //Добавим в таблицу общий заголовок
-                    PdfPCell cell = new PdfPCell(new Phrase("БД " + "test1" + ", таблица №" + (i + 1), font));
+                    PdfPCell cell = new PdfPCell(new Phrase(a+ DateTime.Now + (i + 1), font));
 
                     cell.Colspan = dataSet.Tables[i].Columns.Count;
                     cell.HorizontalAlignment = 1;
@@ -219,7 +240,9 @@ namespace Model1
                     //Добавляем таблицу в документ
                     doc.Add(table);
                     doc.Close();
+                    
                 }
+                
             }
             catch (Exception)
             {

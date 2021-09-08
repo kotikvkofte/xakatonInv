@@ -5,15 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c6f5046ede74478a9a4cecd5b12adf9a" Name="Diagram1">
-        <EntityTypeShape EntityType="test1Model.Inventory" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="test1Model.Locations" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="test1Model.Roles" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="test1Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="test1Model.Users" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="test1Model.Workplaces" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="test1Model.FK_Inventory_Workplaces" ManuallyRouted="false" />
-        <AssociationConnector Association="test1Model.FK_Workplaces_Locations" ManuallyRouted="false" />
-        <AssociationConnector Association="test1Model.FK_Users_Roles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="test1Model.Inventory" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="test1Model.Locations" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="test1Model.Responsible_Persons" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="test1Model.Roles" Width="1.5" PointX="5.75" PointY="5.125" />
+        <EntityTypeShape EntityType="test1Model.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="test1Model.Users" Width="1.5" PointX="8" PointY="4.875" />
+        <EntityTypeShape EntityType="test1Model.Workplaces" Width="1.5" PointX="3" PointY="1.25" />
+        <AssociationConnector Association="test1Model.FK_Inventory_Responsible_Persons" />
+        <AssociationConnector Association="test1Model.FK_Inventory_Workplaces" />
+        <AssociationConnector Association="test1Model.FK_Workplaces_Locations" />
+        <AssociationConnector Association="test1Model.FK_Users_Roles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
