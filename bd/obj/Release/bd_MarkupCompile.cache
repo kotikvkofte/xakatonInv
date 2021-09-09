@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\User\Desktop\solution1\bd\obj\Release\
+C:\Users\User\Source\Repos\Donatello\bd\obj\Release\
 bd
 none
 false
 TRACE
-C:\Users\User\Desktop\solution1\bd\App.xaml
-5-468889098
+C:\Users\User\Source\Repos\Donatello\bd\App.xaml
+71198586807
 
-91115946803
-36-318717353
-AddLocationWindow.xaml;AddWorkplaceWindow.xaml;InventoryListWindow.xaml;MainWindow.xaml;ResultWindow.xaml;
+11-194019094
+30212822222
+AddInventoryWindow.xaml;AddLocationWindow.xaml;AddRespPersonWindow.xaml;AddWorkplaceWindow.xaml;ListWindow.xaml;MainWindow.xaml;ResultWindow.xaml;
 
 True
 

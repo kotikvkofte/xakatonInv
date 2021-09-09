@@ -229,6 +229,7 @@ namespace bd
             if (StartInventory == false)
             {
                 InventoryzationButton.Content = " Остановить ";
+                InventoryzationContinueButton.Visibility = Visibility.Hidden;
                 StartInventory = true;
                 ChkbsInventoryPanel.Visibility = Visibility.Visible;
                 InventoryTotalTxt.Text = DataBaseActions.GetAllInventoryList().Count().ToString();
@@ -236,6 +237,7 @@ namespace bd
             else
             {
                 InventoryzationButton.Content = " Начать инвентаризацию ";
+                InventoryzationContinueButton.Visibility = Visibility.Visible;
                 StartInventory = false;
                 ChkbsInventoryPanel.Visibility = Visibility.Hidden;
                 ResultWindow window = new ResultWindow();
@@ -246,7 +248,7 @@ namespace bd
 
         private void UpdateCurrentInventory()
         {
-            if (StartInventory == true)
+            if (StartInventory == true || ContinueInventarization == true)
             {
                 InventoryCurrentTxt.Text = Inventorys.GetCurrentInventoyNumb().ToString();
             }
@@ -284,12 +286,10 @@ namespace bd
             addRespPerson.ShowDialog();
             Keyboard.Focus(BarcodeTxb);
         }
-        bool ContnueInventarization = false;
+        bool ContinueInventarization = false;
         private void InventoryzationContinueButton_Click(object sender, RoutedEventArgs e)
         {
-            InventoryzationButton.Visibility = Visibility.Hidden;
-            ContnueInventarization = true;
-            
+            ContinueInv();
         }
 
         private void AddInventory_Click(object sender, RoutedEventArgs e)
@@ -311,17 +311,31 @@ namespace bd
 
         private void ContinueInv()
         {
-            if (ContnueInventarization)
+            if (ContinueInventarization == false)
             {
+                var lst = ExcelHelper.ExcelToList();//пшел на хуй:)
+                if (lst == null)
+                {
+                    return;
+                }
+                Inventorys.SetCurrentList(lst);
+                InventoryzationContinueButton.Content = " Остановить ";
                 InventoryzationButton.Visibility = Visibility.Hidden;
-                
-                InventoryzationContinueButton.Content = "Закончить инвентаризацию";
-
+                ContinueInventarization = true;
+                ChkbsInventoryPanel.Visibility = Visibility.Visible;
+                InventoryTotalTxt.Text = DataBaseActions.GetAllInventoryList().Count().ToString();
+                InventoryCurrentTxt.Text = Inventorys.GetCurrentInventoyNumb().ToString();
             }
-            if (ContnueInventarization == false)
+            else
             {
-
+                InventoryzationButton.Content = " Продолжить инвентаризацию ";
+                InventoryzationButton.Visibility = Visibility.Visible;
+                ContinueInventarization = false;
+                ChkbsInventoryPanel.Visibility = Visibility.Hidden;
+                ResultWindow window = new ResultWindow();
+                window.ShowDialog();
             }
+            Keyboard.Focus(BarcodeTxb);
         }
     }
 }

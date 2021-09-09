@@ -22,7 +22,7 @@
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </Style>
                         </GridView.ColumnHeaderContainerStyle>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="{Binding ElementName=LocList, Path=ActualWidth}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="{Binding ElementName=PersonsList, Path=ActualWidth}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>

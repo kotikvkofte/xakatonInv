@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\solution1\Donatello\bd\obj\Debug\
+C:\Users\User\Source\Repos\Donatello\bd\obj\Debug\
 bd
 none
 false
 DEBUG;TRACE
-E:\solution1\Donatello\bd\App.xaml
+C:\Users\User\Source\Repos\Donatello\bd\App.xaml
 71198586807
 
 12-1036378461
-391621278263
+38-800796851
 AddInventoryWindow.xaml;AddLocationWindow.xaml;AddRespPersonWindow.xaml;AddWorkplaceWindow.xaml;ListWindow.xaml;MainWindow.xaml;ResultWindow.xaml;
 
 True

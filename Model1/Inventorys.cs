@@ -11,6 +11,11 @@ namespace Model1
     {
         private static List<Inventory> CurrentInventory = new List<Inventory>();
 
+        public static void SetCurrentList(List<Inventory> ik)
+        {
+            CurrentInventory = ik;
+        }
+
         /// <summary>
         /// возвращает количество текущих элементов листа
         /// (для счетчика)

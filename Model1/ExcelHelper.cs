@@ -133,7 +133,7 @@ namespace Model1
             return arr;
         }
 
-        public static /*List<Inventory>*/ void FromExcelToList()
+        public static List<Inventory> ExcelToList()
         {
             // Открываем приложение
             application = new Application
@@ -153,7 +153,7 @@ namespace Model1
             }
             else
             {
-                //return new List<Inventory>();
+                return null;
             }
 
             List<Inventory> invList = new List<Inventory>();
@@ -182,70 +182,8 @@ namespace Model1
 
                 try
                 {
-                    //Удаление прошлых данных из табилц
-                    if (OdbConnectHelper.entObj.Inventory.FirstOrDefault() != null)
-                        OdbConnectHelper.entObj.Inventory.RemoveRange(OdbConnectHelper.entObj.Inventory);
-                    if (OdbConnectHelper.entObj.Workplaces.FirstOrDefault() != null)
-                        OdbConnectHelper.entObj.Workplaces.RemoveRange(OdbConnectHelper.entObj.Workplaces);
-                    if (OdbConnectHelper.entObj.Locations.FirstOrDefault() != null)
-                        OdbConnectHelper.entObj.Locations.RemoveRange(OdbConnectHelper.entObj.Locations);
-                    if (OdbConnectHelper.entObj.Responsible_Persons.FirstOrDefault() != null)
-                        OdbConnectHelper.entObj.Responsible_Persons.RemoveRange(OdbConnectHelper.entObj.Responsible_Persons);
                     //Заполнение БД
-                    //Таблица Locations
-                    string[] DistinctLocationArray = StringArrayToDistinctStringArray(LocationArray);
-                    for (int i = 0; i < DistinctLocationArray.Length; i++)
-                    {
-                        Locations loc = new Locations
-                        {
-                            Location = DistinctLocationArray[i]
-                        };
-                        OdbConnectHelper.entObj.Locations.Add(loc);
-                    }
-                    OdbConnectHelper.entObj.SaveChanges();
-
-                    //Таблица Workplaces
-                    string[] DistinctWorkplaceArray = StringArrayToDistinctStringArray(WorkplaceArray);
-                    for (int i = 0; i < DistinctWorkplaceArray.Length; i++)
-                    {
-                        Workplaces wrk = new Workplaces
-                        {
-                            Place = DistinctWorkplaceArray[i]
-                        };
-                        OdbConnectHelper.entObj.Workplaces.Add(wrk);
-                    }
-                    OdbConnectHelper.entObj.SaveChanges();
-
-
-
-                    for (int i = 0; i < LocationArray.Length; i++)
-                    {
-                        string b = WorkplaceArray[i].FirstCharToUpper();
-                        var FirstWrk = OdbConnectHelper.entObj.Workplaces.FirstOrDefault(x => x.Place == b);
-                        if (FirstWrk.IdLocation == null)
-                        {
-                            string a = LocationArray[i].FirstCharToUpper();
-                            var FirstLoc = OdbConnectHelper.entObj.Locations.FirstOrDefault(x => x.Location == a);
-
-                            FirstWrk.IdLocation = FirstLoc.Id;
-                        }
-                    }
-                    OdbConnectHelper.entObj.SaveChanges();
-
-                    //Таблица Responsible_Persons
-                    string[] DistinctRespPersonArray = StringArrayToDistinctStringArray(RespPersonArray);
-                    for (int i = 0; i < DistinctRespPersonArray.Length; i++)
-                    {
-                        Responsible_Persons responsible = new Responsible_Persons
-                        {
-                            Name = DistinctRespPersonArray[i]
-                        };
-                        OdbConnectHelper.entObj.Responsible_Persons.Add(responsible);
-                    }
-                    OdbConnectHelper.entObj.SaveChanges();
-
-                    //Заполнение БД
-                    for (int i = 0; i < NamesArray.Length; i++)
+                    for (int i = 1; i < NamesArray.Length; i++)
                     {
                         string plc = WorkplaceArray[i].FirstCharToUpper();
                         var k = OdbConnectHelper.entObj.Workplaces.FirstOrDefault(x => x.Place == plc);
@@ -260,17 +198,17 @@ namespace Model1
                             IdWorkplace = k.Id,
                             IdPerson = p.Id
                         };
-                        OdbConnectHelper.entObj.Inventory.Add(inv);
+                        invList.Add(inv);
                     }
                     CloseExcel();
-                    OdbConnectHelper.entObj.SaveChanges();
-                    MessageBox.Show("Все успешно сработало");
+                    return invList;
 
                 }
                 catch (Exception ex)
                 {
                     CloseExcel();
                     MessageBox.Show("Критическая ошибка приложения" + ex.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return null;
                 }
             }
 
@@ -278,6 +216,7 @@ namespace Model1
             {
                 CloseExcel();
                 MessageBox.Show("Критическая ошибка приложения" + ex.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
             }
         }
 
